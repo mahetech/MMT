@@ -2,6 +2,7 @@ package com.sbfc.member.management.common;
 
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.xml.bind.JAXBContext;
@@ -14,7 +15,12 @@ public final class Common {
 
 	private static Map<Class<?>, Marshaller> marshallerMap = new HashMap<Class<?>, Marshaller>();
 
-	private static Map<Enum, HashMap<Integer, GlobalConstant>> constantMap = new HashMap<Enum, HashMap<Integer, GlobalConstant>>();
+	// private enum ConstantTypes {
+	// ADDRESS_TYPE, DIALECT, IDENTITY_TYPE, LEAVING_REASON, MEMBER_TYPE,
+	// NATIONALITY, RELIGION
+	// }
+
+	private static Map<String, HashMap<Short, GlobalConstant>> constantMap = new HashMap<String, HashMap<Short, GlobalConstant>>();
 
 	public static Marshaller getMarshaller(Class<?> clazz) throws JAXBException {
 		Marshaller jaxbMarshaller = null;
@@ -46,8 +52,16 @@ public final class Common {
 		return xmlString;
 	}
 
-	public static void loadConstants() {
-		// TODO
+	public static void loadConstants(List<GlobalConstant> constList) {
+		if (constList != null) {
+			constList.forEach(constObj -> {
+				HashMap<Short, GlobalConstant> constMap = constantMap.getOrDefault(constObj.getConstantType(),
+						(new HashMap<Short, GlobalConstant>()));
+				System.out.println("Constant TEMP Map >> " + constMap);
+				constMap.put(constObj.getConstantId(), constObj);
+			});
+		}
+		System.out.println("Constant TEMP Map >> " + constantMap);
 	}
 
 }
