@@ -3,6 +3,9 @@ package com.sbfc.member.management.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -11,6 +14,7 @@ import com.sbfc.member.management.common.Common;
 /**
  * The persistent class for the payment database table.
  */
+@XmlRootElement
 public class Payment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -29,6 +33,7 @@ public class Payment implements Serializable {
 	/**
 	 * @return the paymentId
 	 */
+	@XmlAttribute
 	public int getPaymentId() {
 		return paymentId;
 	}

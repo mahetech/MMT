@@ -2,6 +2,9 @@ package com.sbfc.member.management.model;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -10,6 +13,7 @@ import com.sbfc.member.management.common.Common;
 /**
  * The persistent class for the address database table.
  */
+@XmlRootElement
 public class Address implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,6 +32,7 @@ public class Address implements Serializable {
 	/**
 	 * @return the addressId
 	 */
+	@XmlAttribute
 	public int getAddressId() {
 		return addressId;
 	}
@@ -160,6 +165,17 @@ public class Address implements Serializable {
 		boolean retType = false;
 		if (isMailingAddress > 0) {
 			retType = true;
+		}
+		return retType;
+	}
+
+	/**
+	 * @return the isMailingAddress
+	 */
+	public byte getIsMailingAddress() {
+		byte retType = 0;
+		if (isMailingAddr()) {
+			retType = 1;
 		}
 		return retType;
 	}

@@ -18,7 +18,6 @@ public class GlobalConstant implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@XmlAttribute
 	private short constantId;
 	private String constantName;
 	private String constantType;
@@ -26,6 +25,7 @@ public class GlobalConstant implements Serializable {
 	/**
 	 * @return the constantId
 	 */
+	@XmlAttribute
 	public short getConstantId() {
 		return constantId;
 	}
@@ -88,8 +88,7 @@ public class GlobalConstant implements Serializable {
 		}
 		GlobalConstant rhs = (GlobalConstant) obj;
 		return new EqualsBuilder().append(getConstantId(), rhs.getConstantId())
-				.append(getConstantType(), rhs.getConstantType())
-				.append(getConstantName(), rhs.getConstantName())
+				.append(getConstantType(), rhs.getConstantType()).append(getConstantName(), rhs.getConstantName())
 				.isEquals();
 	}
 

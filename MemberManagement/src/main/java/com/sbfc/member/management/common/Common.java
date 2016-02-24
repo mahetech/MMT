@@ -15,12 +15,13 @@ public final class Common {
 
 	private static Map<Class<?>, Marshaller> marshallerMap = new HashMap<Class<?>, Marshaller>();
 
-	// private enum ConstantTypes {
-	// ADDRESS_TYPE, DIALECT, IDENTITY_TYPE, LEAVING_REASON, MEMBER_TYPE,
-	// NATIONALITY, RELIGION
-	// }
-
-	private static Map<String, HashMap<Short, GlobalConstant>> constantMap = new HashMap<String, HashMap<Short, GlobalConstant>>();
+	private static Map<Short, String> addressTypeMap = new HashMap<Short, String>();
+	private static Map<Short, String> dialectMap = new HashMap<Short, String>();
+	private static Map<Short, String> identityTypeMap = new HashMap<Short, String>();
+	private static Map<Short, String> leavingReasonMap = new HashMap<Short, String>();
+	private static Map<Short, String> memberTypeMap = new HashMap<Short, String>();
+	private static Map<Short, String> nationalityMap = new HashMap<Short, String>();
+	private static Map<Short, String> religionMap = new HashMap<Short, String>();
 
 	public static Marshaller getMarshaller(Class<?> clazz) throws JAXBException {
 		Marshaller jaxbMarshaller = null;
@@ -52,16 +53,84 @@ public final class Common {
 		return xmlString;
 	}
 
+	/**
+	 * @return the addressTypeMap
+	 */
+	public static Map<Short, String> getAddressTypeMap() {
+		return addressTypeMap;
+	}
+
+	/**
+	 * @return the dialectMap
+	 */
+	public static Map<Short, String> getDialectMap() {
+		return dialectMap;
+	}
+
+	/**
+	 * @return the identityTypeMap
+	 */
+	public static Map<Short, String> getIdentityTypeMap() {
+		return identityTypeMap;
+	}
+
+	/**
+	 * @return the leavingReasonMap
+	 */
+	public static Map<Short, String> getLeavingReasonMap() {
+		return leavingReasonMap;
+	}
+
+	/**
+	 * @return the memberTypeMap
+	 */
+	public static Map<Short, String> getMemberTypeMap() {
+		return memberTypeMap;
+	}
+
+	/**
+	 * @return the nationalityMap
+	 */
+	public static Map<Short, String> getNationalityMap() {
+		return nationalityMap;
+	}
+
+	/**
+	 * @return the religionMap
+	 */
+	public static Map<Short, String> getReligionMap() {
+		return religionMap;
+	}
+
 	public static void loadConstants(List<GlobalConstant> constList) {
 		if (constList != null) {
 			constList.forEach(constObj -> {
-				HashMap<Short, GlobalConstant> constMap = constantMap.getOrDefault(constObj.getConstantType(),
-						(new HashMap<Short, GlobalConstant>()));
-				System.out.println("Constant TEMP Map >> " + constMap);
-				constMap.put(constObj.getConstantId(), constObj);
+				String type = constObj.getConstantType();
+
+				if ("ADDRESS_TYPE".equalsIgnoreCase(type)) {
+					addressTypeMap.put(constObj.getConstantId(), constObj.getConstantName());
+				} else if ("DIALECT".equalsIgnoreCase(type)) {
+					dialectMap.put(constObj.getConstantId(), constObj.getConstantName());
+				} else if ("IDENTITY_TYPE".equalsIgnoreCase(type)) {
+					identityTypeMap.put(constObj.getConstantId(), constObj.getConstantName());
+				} else if ("LEAVING_REASON".equalsIgnoreCase(type)) {
+					leavingReasonMap.put(constObj.getConstantId(), constObj.getConstantName());
+				} else if ("MEMBER_TYPE".equalsIgnoreCase(type)) {
+					memberTypeMap.put(constObj.getConstantId(), constObj.getConstantName());
+				} else if ("NATIONALITY".equalsIgnoreCase(type)) {
+					nationalityMap.put(constObj.getConstantId(), constObj.getConstantName());
+				} else if ("RELIGION".equalsIgnoreCase(type)) {
+					religionMap.put(constObj.getConstantId(), constObj.getConstantName());
+				}
 			});
 		}
-		System.out.println("Constant TEMP Map >> " + constantMap);
+		System.out.println("ADDRESS_TYPE Map >> " + getAddressTypeMap());
+		System.out.println("DIALECT Map >> " + getDialectMap());
+		System.out.println("IDENTITY_TYPE Map >> " + getIdentityTypeMap());
+		System.out.println("LEAVING_REASON Map >> " + getLeavingReasonMap());
+		System.out.println("MEMBER_TYPE Map >> " + getMemberTypeMap());
+		System.out.println("NATIONALITY Map >> " + getNationalityMap());
+		System.out.println("RELIGION Map >> " + getReligionMap());
 	}
-
+	
 }

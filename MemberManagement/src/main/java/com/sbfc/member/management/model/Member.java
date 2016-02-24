@@ -33,6 +33,7 @@ public class Member implements Serializable {
 	private String servedYearToYear;
 	private String title;
 	private String yearsAttendedAgm;
+	
 	private short dialectGroupId;
 	private short identityTypeId;
 	private short memberTypeId;
