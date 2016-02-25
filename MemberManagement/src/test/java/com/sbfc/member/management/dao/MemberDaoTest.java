@@ -4,12 +4,16 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,6 +27,7 @@ import com.sbfc.member.management.common.Common;
 import com.sbfc.member.management.configuration.DatabaseConfiguration;
 import com.sbfc.member.management.model.Address;
 import com.sbfc.member.management.model.GlobalConstant;
+import com.sbfc.member.management.model.Member;
 import com.sbfc.member.management.model.Payment;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -90,7 +95,7 @@ public class MemberDaoTest {
 		addr.setPostalCode("post_UP");
 		addr.setIsMailingAddress((byte) 100);
 		// addr.setIsMailingAddress((byte) -100);
-		System.out.println("Input Address: " + addr);
+		System.out.println("Address to be updated:\n " + addr);
 
 		int row = memberDao.updateAddress(addr);
 
@@ -121,7 +126,7 @@ public class MemberDaoTest {
 		addr.setPostalCode("post");
 		addr.setIsMailingAddress((byte) 100);
 		// addr.setIsMailingAddress((byte) -100);
-		System.out.println("Input Address: " + addr);
+		System.out.println("Input Address 1: " + addr);
 
 		Address addr2 = new Address();
 
@@ -144,7 +149,7 @@ public class MemberDaoTest {
 		addr2.setPostalCode("post_UP");
 		// addr2.setIsMailingAddress((byte) 100);
 		addr2.setIsMailingAddress((byte) -100);
-		System.out.println("Input Address: " + addr2);
+		System.out.println("Input Address 2: " + addr2);
 
 		List<Address> addrList = new ArrayList<Address>();
 		addrList.add(addr);
@@ -152,7 +157,6 @@ public class MemberDaoTest {
 
 		int[] updateCounts = memberDao.updateAddrList(addrList);
 
-		System.out.println("Update row arrary >> " + Arrays.toString(updateCounts));
 		assertNotNull("No ADDRESS List Update happened", updateCounts);
 		assertTrue("No ADDRESS#1 Update happened", updateCounts[0] > 0);
 		assertTrue("No ADDRESS#2 Update happened", updateCounts[1] > 0);
@@ -203,6 +207,227 @@ public class MemberDaoTest {
 
 		System.out.println("Inserted row >> " + row);
 		assertTrue("No Paymenet Insertion happened", row > 0);
+	}
+
+	@Test
+	public void testUpdatePayment() {
+		Date dueDate = null;
+		Date paidDate = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+		try {
+			dueDate = sdf.parse("25/10/2222");
+			paidDate = sdf.parse("22/11/2333");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Assert.fail(e.getMessage());
+		}
+
+		Payment payment = new Payment();
+
+		/*
+		 * An payment record with paymentId=1 should already be available in
+		 * "payment" table.
+		 */
+		payment.setPaymentId(1);
+
+		/*
+		 * A member record with memberId="A1" should already be available in
+		 * "member" table.
+		 */
+		payment.setMemberId("A1");
+
+		payment.setAccountingRefVoucher("***untingRefVoucher");
+		payment.setChequeNumber("***queNumber");
+		payment.setDueAmount((float) 111.99);
+		payment.setDueDate(dueDate);
+		payment.setPaidAmount((float) 55.76);
+		payment.setPaidDate(paidDate);
+		payment.setPaymentMode("***Mode");
+		payment.setReceiptNumber("***receiptNo");
+
+		System.out.println("Payment to be updated: " + payment);
+
+		int row = memberDao.updatePayment(payment);
+
+		System.out.println("Updated payment row >> " + row);
+		assertTrue("No Paymenet update happened", row > 0);
+	}
+
+	@Test
+	public void testUpdatePaymentList() {
+		Date dueDate = null;
+		Date paidDate = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+		try {
+			dueDate = sdf.parse("25/10/3222");
+			paidDate = sdf.parse("22/11/4333");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Assert.fail(e.getMessage());
+		}
+
+		Payment payment = new Payment();
+
+		/*
+		 * An payment record with paymentId=2 should already be available in
+		 * "payment" table.
+		 */
+		payment.setPaymentId(2);
+
+		/*
+		 * A member record with memberId="A1" should already be available in
+		 * "member" table.
+		 */
+		payment.setMemberId("A1");
+
+		payment.setAccountingRefVoucher("##untingRefVoucher");
+		payment.setChequeNumber("##queNumber");
+		payment.setDueAmount((float) 353.99);
+		payment.setDueDate(dueDate);
+		payment.setPaidAmount((float) 656.76);
+		payment.setPaidDate(paidDate);
+		payment.setPaymentMode("##Mode");
+		payment.setReceiptNumber("##receiptNo");
+
+		System.out.println("Input Payment 1: " + payment);
+
+		try {
+			dueDate = sdf.parse("25/10/8888");
+			paidDate = sdf.parse("22/11/8899");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Assert.fail(e.getMessage());
+		}
+
+		Payment payment2 = new Payment();
+
+		/*
+		 * An payment record with paymentId=3 should already be available in
+		 * "payment" table.
+		 */
+		payment2.setPaymentId(3);
+
+		/*
+		 * A member record with memberId="A1" should already be available in
+		 * "member" table.
+		 */
+		payment2.setMemberId("A1");
+
+		payment2.setAccountingRefVoucher("@@untingRefVoucher");
+		payment2.setChequeNumber("@@queNumber");
+		payment2.setDueAmount((float) 910103.99);
+		payment2.setDueDate(dueDate);
+		payment2.setPaidAmount((float) 6060.76);
+		payment2.setPaidDate(paidDate);
+		payment2.setPaymentMode("@@Mode");
+		payment2.setReceiptNumber("@@receiptNo");
+
+		System.out.println("Input Payment 2: " + payment2);
+
+		List<Payment> paymentList = new ArrayList<Payment>();
+		paymentList.add(payment);
+		paymentList.add(payment2);
+
+		int[] updateCounts = memberDao.updatePaymentList(paymentList);
+
+		assertNotNull("No PAYMENT List Update happened", updateCounts);
+		assertTrue("No PAYMENT#1 Update happened", updateCounts[0] > 0);
+		assertTrue("No PAYMENT#2 Update happened", updateCounts[1] > 0);
+	}
+
+	@Test
+	public void testGetPayments() {
+		List<Payment> paymentList = memberDao.getPayments("A1");
+		assertNotNull("No PAYMENT List returned", paymentList);
+		assertFalse("Payment List is EMPTY", paymentList.isEmpty());
+
+		Member mem = new Member();
+		System.out.println(mem);
+	}
+
+	@Test
+	public void testAddMember() {
+		Date birthDate = null;
+		Date joinDate = null;
+		Date leftDate = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+		try {
+			birthDate = sdf.parse("25/10/1952");
+			joinDate = sdf.parse("5/8/1992");
+			leftDate = sdf.parse("19/4/2002");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			Assert.fail(e.getMessage());
+		}
+
+		Member mem = generateMemberFromXML("src/test/java/com/sbfc/member/management/dao/member01.xml");
+		mem.setDateOfBirth(birthDate);
+		mem.setDateJoin(joinDate);
+		mem.setDateLeft(leftDate);
+
+		System.out.println("Member to be inserted:\n" + mem);
+
+		int row = memberDao.addMember(mem);
+
+		System.out.println("Inserted Member row >> " + row);
+		assertTrue("No MEMBER Insertion happened", row > 0);
+	}
+
+	/**
+	 * To generate MEMBER object based on the input XML file.
+	 * 
+	 * @param fileName
+	 * @return {@link Member}
+	 */
+	private static Member generateMemberFromXML(String fileName) {
+		System.out.println("File Name: " + fileName);
+		try {
+			JAXBContext context = JAXBContext.newInstance(Member.class);
+			Unmarshaller un = context.createUnmarshaller();
+			Member mem = (Member) un.unmarshal(new File(fileName));
+			System.out.println("Generated Member:\n" + mem);
+			return mem;
+		} catch (JAXBException e) {
+			e.printStackTrace();
+			Assert.fail("Error in generated member object using " + fileName);
+		}
+		return null;
+	}
+
+	@Test
+	public void testUpdateMember() {
+		Date birthDate = null;
+		Date joinDate = null;
+		Date leftDate = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+		try {
+			birthDate = sdf.parse("25/10/1952");
+			joinDate = sdf.parse("5/8/1992");
+			leftDate = sdf.parse("19/4/2002");
+		} catch (ParseException e) {
+			e.printStackTrace();
+			Assert.fail(e.getMessage());
+		}
+
+		Member mem = generateMemberFromXML("src/test/java/com/sbfc/member/management/dao/member02.xml");
+		mem.setDateOfBirth(birthDate);
+		mem.setDateJoin(joinDate);
+		mem.setDateLeft(leftDate);
+		mem.setNameChinese("MaheName in Chinese");
+
+		System.out.println("Member to be updated:\n" + mem);
+
+		int row = memberDao.updateMember(mem);
+
+		System.out.println("Updated Member row >> " + row);
+		assertTrue("No MEMBER Update happened", row > 0);
 	}
 
 }

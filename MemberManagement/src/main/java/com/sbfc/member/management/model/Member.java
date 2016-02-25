@@ -3,6 +3,9 @@ package com.sbfc.member.management.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -11,6 +14,7 @@ import com.sbfc.member.management.common.Common;
 /**
  * The persistent class for the member database table.
  */
+@XmlRootElement
 public class Member implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -33,7 +37,7 @@ public class Member implements Serializable {
 	private String servedYearToYear;
 	private String title;
 	private String yearsAttendedAgm;
-	
+
 	private short dialectGroupId;
 	private short identityTypeId;
 	private short memberTypeId;
@@ -46,9 +50,24 @@ public class Member implements Serializable {
 	private String nationality;
 	private String religion;
 
+	private String email;
+	private String faxNumber;
+	private String homePhone;
+	private String mobile;
+	private String officePhone;
+
+	private Date dateJoin;
+	private Date dateLeft;
+	private String introducerId;
+	private short leavingReasonId;
+
+	private String introducerName;
+	private String leavingReason;
+	
 	/**
 	 * @return the memberId
 	 */
+	@XmlAttribute
 	public String getMemberId() {
 		return memberId;
 	}
@@ -472,6 +491,193 @@ public class Member implements Serializable {
 	 */
 	public void setReligion(String religion) {
 		this.religion = religion;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email
+	 *            the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
+	 * @return the faxNumber
+	 */
+	public String getFaxNumber() {
+		return faxNumber;
+	}
+
+	/**
+	 * @param faxNumber
+	 *            the faxNumber to set
+	 */
+	public void setFaxNumber(String faxNumber) {
+		this.faxNumber = faxNumber;
+	}
+
+	/**
+	 * @return the homePhone
+	 */
+	public String getHomePhone() {
+		return homePhone;
+	}
+
+	/**
+	 * @param homePhone
+	 *            the homePhone to set
+	 */
+	public void setHomePhone(String homePhone) {
+		this.homePhone = homePhone;
+	}
+
+	/**
+	 * @return the mobile
+	 */
+	public String getMobile() {
+		return mobile;
+	}
+
+	/**
+	 * @param mobile
+	 *            the mobile to set
+	 */
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	/**
+	 * @return the officePhone
+	 */
+	public String getOfficePhone() {
+		return officePhone;
+	}
+
+	/**
+	 * @param officePhone
+	 *            the officePhone to set
+	 */
+	public void setOfficePhone(String officePhone) {
+		this.officePhone = officePhone;
+	}
+
+	/**
+	 * @return the dateJoin
+	 */
+	public Date getDateJoin() {
+		return dateJoin;
+	}
+
+	/**
+	 * @param dateJoin
+	 *            the dateJoin to set
+	 */
+	public void setDateJoin(Date dateJoin) {
+		this.dateJoin = dateJoin;
+	}
+
+	/**
+	 * @return the dateLeft
+	 */
+	public Date getDateLeft() {
+		return dateLeft;
+	}
+
+	/**
+	 * @param dateLeft
+	 *            the dateLeft to set
+	 */
+	public void setDateLeft(Date dateLeft) {
+		this.dateLeft = dateLeft;
+	}
+
+	/**
+	 * @return the introducerId
+	 */
+	public String getIntroducerId() {
+		return introducerId;
+	}
+
+	/**
+	 * @param introducerId
+	 *            the introducerId to set
+	 */
+	public void setIntroducerId(String introducerId) {
+		this.introducerId = introducerId;
+	}
+
+	/**
+	 * @return the leavingReasonId
+	 */
+	public short getLeavingReasonId() {
+		return leavingReasonId;
+	}
+
+	/**
+	 * @param leavingReasonId
+	 *            the leavingReasonId to set
+	 */
+	public void setLeavingReasonId(short leavingReasonId) {
+		this.leavingReasonId = leavingReasonId;
+	}
+
+	/**
+	 * @return the introducerName
+	 */
+	public String getIntroducerName() {
+		return introducerName;
+	}
+
+	/**
+	 * @param introducerName
+	 *            the introducerName to set
+	 */
+	public void setIntroducerName(String introducerName) {
+		this.introducerName = introducerName;
+	}
+
+	/**
+	 * @return the leavingReason
+	 */
+	public String getLeavingReason() {
+		return leavingReason;
+	}
+
+	/**
+	 * @param leavingReason
+	 *            the leavingReason to set
+	 */
+	public void setLeavingReason(String leavingReason) {
+		this.leavingReason = leavingReason;
+	}
+
+	/**
+	 * @return the attendedAgm
+	 */
+	public byte getAttendedAgm() {
+		byte retType = 0;
+		if (isAttendedAgm()) {
+			retType = 1;
+		}
+		return retType;
+	}
+
+	/**
+	 * @return the boardMember
+	 */
+	public byte getBoardMember() {
+		byte retType = 0;
+		if (isBoardMember()) {
+			retType = 1;
+		}
+		return retType;
 	}
 
 	@Override

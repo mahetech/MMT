@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import com.sbfc.member.management.model.Address;
 import com.sbfc.member.management.model.GlobalConstant;
+import com.sbfc.member.management.model.Payment;
 
 /**
  * @author mahendran
@@ -19,6 +20,8 @@ public abstract class AbstractDao {
 			GlobalConstant.class);
 
 	private static final RowMapper<Address> addrMapper = new BeanPropertyRowMapper<Address>(Address.class);
+
+	private static final RowMapper<Payment> paymentMapper = new BeanPropertyRowMapper<Payment>(Payment.class);
 
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -34,15 +37,25 @@ public abstract class AbstractDao {
 		return jdbcTemplate;
 	}
 
+	/**
+	 * @return the constMapper
+	 */
 	protected RowMapper<GlobalConstant> getConstantMapper() {
 		return constMapper;
 	}
 
 	/**
-	 * @return the addrmapper
+	 * @return the addrMapper
 	 */
-	protected static RowMapper<Address> getAddrmapper() {
+	protected static RowMapper<Address> getAddrMapper() {
 		return addrMapper;
+	}
+
+	/**
+	 * @return the paymentMapper
+	 */
+	protected static RowMapper<Payment> getPaymentMapper() {
+		return paymentMapper;
 	}
 
 }

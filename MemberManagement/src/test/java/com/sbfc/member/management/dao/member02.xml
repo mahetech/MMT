@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<member memberId="A1">
+	<attendedAgm>5</attendedAgm>
+	<boardMember>11</boardMember>
+    <color>color</color>
+    <contactPersonName>contactPersonName</contactPersonName>
+    <contactTitle>C_Title</contactTitle>
+    <dialectGroupId>302</dialectGroupId>
+    <email>abcd.1234@gmail.com</email>
+    <faxNumber>faxNumber</faxNumber>
+    <gender>M</gender>
+    <highestEducation>highestEducation</highestEducation>
+    <homePhone>homePhone</homePhone>
+    <identityNumber>identityNumber</identityNumber>
+    <identityTypeId>605</identityTypeId>
+    <introducerId>A1</introducerId>
+    <leavingReasonId>503</leavingReasonId>
+    <memberTypeId>703</memberTypeId>
+    <mobile>mobile123</mobile>
+    <nameChinese>nameChinese</nameChinese>
+    <nameEngligh>nameEngligh</nameEngligh>
+    <nationalityId>103</nationalityId>
+    <occupation>occupation</occupation>
+    <officePhone>officePhone</officePhone>
+    <otherCharities>otherCharities</otherCharities>
+    <otherContribution>otherContribution</otherContribution>
+    <religionId>404</religionId>
+    <servedYearToYear>servedYearToYear</servedYearToYear>
+    <title>title</title>
+    <yearsAttendedAgm>yearsAttendedAgm</yearsAttendedAgm>
+</member>
