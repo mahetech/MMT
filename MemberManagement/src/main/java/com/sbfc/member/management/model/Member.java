@@ -63,7 +63,7 @@ public class Member implements Serializable {
 
 	private String introducerName;
 	private String leavingReason;
-	
+
 	/**
 	 * @return the memberId
 	 */
@@ -399,7 +399,7 @@ public class Member implements Serializable {
 	/**
 	 * @return the isAttendedAgm
 	 */
-	public boolean isAttendedAgm() {
+	public boolean isMemberAttendedAgm() {
 		boolean isAttendedAgm = false;
 		if (attendedAgm > 0) {
 			isAttendedAgm = true;
@@ -410,7 +410,7 @@ public class Member implements Serializable {
 	/**
 	 * @return the isBoardMember
 	 */
-	public boolean isBoardMember() {
+	public boolean isMemberOfBoard() {
 		boolean isBoardMember = false;
 		if (boardMember > 0) {
 			isBoardMember = true;
@@ -663,7 +663,7 @@ public class Member implements Serializable {
 	 */
 	public byte getAttendedAgm() {
 		byte retType = 0;
-		if (isAttendedAgm()) {
+		if (isMemberAttendedAgm()) {
 			retType = 1;
 		}
 		return retType;
@@ -674,7 +674,7 @@ public class Member implements Serializable {
 	 */
 	public byte getBoardMember() {
 		byte retType = 0;
-		if (isBoardMember()) {
+		if (isMemberOfBoard()) {
 			retType = 1;
 		}
 		return retType;

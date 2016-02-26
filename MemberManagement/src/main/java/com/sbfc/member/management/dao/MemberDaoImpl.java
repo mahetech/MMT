@@ -90,6 +90,24 @@ public final class MemberDaoImpl extends AbstractDao implements IMemberDao {
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see com.sbfc.member.management.dao.IMemberDao#getAddressById()
+	 */
+	@Override
+	public Address getAddressById(int addressId) {
+		Address addr = null;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("addressId", addressId);
+		List<Address> addrList = getJdbcTemplate().query(FETCH_ADDRESS_BY_ID, map, getAddrMapper());
+		System.out.println(String.format("For Input addressId=%s, Address List:\n %s", addressId, addrList));
+		if (addrList != null && !addrList.isEmpty()) {
+			addr = addrList.get(0);
+		}
+		return addr;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.sbfc.member.management.dao.IMemberDao#addPayment()
 	 */
 	@Override
@@ -124,6 +142,24 @@ public final class MemberDaoImpl extends AbstractDao implements IMemberDao {
 		int[] updateCounts = getJdbcTemplate().batchUpdate(UPDATE_PAYMENT, batch);
 		System.out.println("Updated Payment arrary >> " + Arrays.toString(updateCounts));
 		return updateCounts;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.sbfc.member.management.dao.IMemberDao#getPaymentById()
+	 */
+	@Override
+	public Payment getPaymentById(int paymentId) {
+		Payment payment = null;
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("paymentId", paymentId);
+		List<Payment> paymentList = getJdbcTemplate().query(FETCH_PAYMENT_BY_ID, map, getPaymentMapper());
+		System.out.println(String.format("For Input paymentId=%s, Payment List:\n %s", paymentId, paymentList));
+		if (paymentList != null && !paymentList.isEmpty()) {
+			payment = paymentList.get(0);
+		}
+		return payment;
 	}
 
 	/*
@@ -164,6 +200,38 @@ public final class MemberDaoImpl extends AbstractDao implements IMemberDao {
 		int row = getJdbcTemplate().update(UPDATE_MEMBER, namedParameters);
 		System.out.println(row + " MEMBER row updated.");
 		return row;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.sbfc.member.management.dao.IMemberDao#getMemberById()
+	 */
+	@Override
+	public Member getMemberById(String memberId) {
+		Member member = null;
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("memberId", memberId);
+		List<Member> memberList = getJdbcTemplate().query(FETCH_MEMBER_BY_ID, map, getMemberMapper());
+		System.out.println(String.format("For Input memberId=%s, Member List:\n %s", memberId, memberList));
+		if (memberList != null && !memberList.isEmpty()) {
+			member = memberList.get(0);
+		}
+		return member;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.sbfc.member.management.dao.IMemberDao#getMembersByTypeId()
+	 */
+	@Override
+	public List<Member> getMembersByTypeId(short memberTypeId) {
+		Map<String, Short> map = new HashMap<String, Short>();
+		map.put("memberTypeId", memberTypeId);
+		List<Member> memberList = getJdbcTemplate().query(FETCH_MEMBERS_BY_TYPE, map, getMemberMapper());
+		System.out.println(String.format("For Input memberTypeId=%s, Address List:\n %s", memberTypeId, memberList));
+		return memberList;
 	}
 
 }

@@ -2,6 +2,7 @@ package com.sbfc.member.management.dao;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -167,6 +168,27 @@ public class MemberDaoTest {
 		List<Address> addrList = memberDao.getAddresses("A1");
 		assertNotNull("No ADDRESS List returned", addrList);
 		assertFalse("Address List is EMPTY", addrList.isEmpty());
+
+		addrList = memberDao.getAddresses("INVALID");
+		assertNotNull("No ADDRESS List returned", addrList);
+		assertTrue("Address List is NON-EMPTY", addrList.isEmpty());
+	}
+
+	@Test
+	public void testGetAddressById() {
+		/*
+		 * An address record with addressId = 4 should already be available in
+		 * "address" table.
+		 */
+		Address addr = memberDao.getAddressById(4);
+		assertNotNull("No address is returned for the input address id", addr);
+
+		/*
+		 * An address record with addressId = -999 should NOT already be
+		 * available in "address" table.
+		 */
+		addr = memberDao.getAddressById(-999);
+		assertNull("Address is returned for the input INVALID address id", addr);
 	}
 
 	@Test
@@ -341,13 +363,31 @@ public class MemberDaoTest {
 	}
 
 	@Test
+	public void testGetPaymentById() {
+		/*
+		 * An payment record with paymentId = 1 should already be available in
+		 * "payment" table.
+		 */
+		Payment payment = memberDao.getPaymentById(1);
+		assertNotNull("No payment is returned for the input payment id", payment);
+
+		/*
+		 * An payment record with paymentId = -999 should NOT already be
+		 * available in "payment" table.
+		 */
+		payment = memberDao.getPaymentById(-999);
+		assertNull("Payment is returned for the input INVALID payment id", payment);
+	}
+
+	@Test
 	public void testGetPayments() {
 		List<Payment> paymentList = memberDao.getPayments("A1");
 		assertNotNull("No PAYMENT List returned", paymentList);
 		assertFalse("Payment List is EMPTY", paymentList.isEmpty());
 
-		Member mem = new Member();
-		System.out.println(mem);
+		paymentList = memberDao.getPayments("INVALID");
+		assertNotNull("No PAYMENT List returned", paymentList);
+		assertTrue("Payment List is NON-EMPTY", paymentList.isEmpty());
 	}
 
 	@Test
@@ -428,6 +468,40 @@ public class MemberDaoTest {
 
 		System.out.println("Updated Member row >> " + row);
 		assertTrue("No MEMBER Update happened", row > 0);
+	}
+
+	@Test
+	public void testGetMemberById() {
+		/*
+		 * A member record with memberId="A1" should already be available in
+		 * "member" table.
+		 */
+		Member mem = memberDao.getMemberById("A1");
+		assertNotNull("No member is returned for the input member id", mem);
+
+		/*
+		 * A member record with memberId="INVALID" should NOT already be
+		 * available in "member" table.
+		 */
+		mem = memberDao.getMemberById("INVALID");
+		assertNull("Member is returned for the input INVALID member id", mem);
+	}
+
+	@Test
+	public void testGetMembersByTypeId() {
+		List<Member> memberList = memberDao.getMembersByTypeId((short) 703);
+		assertNotNull("No member List returned", memberList);
+		assertFalse("Member List is EMPTY", memberList.isEmpty());
+		assertTrue("Member list size is NOT matching", (memberList.size() == 2));
+
+		memberList = memberDao.getMembersByTypeId((short) 702);
+		assertNotNull("No member List returned", memberList);
+		assertFalse("Member List is EMPTY", memberList.isEmpty());
+		assertTrue("Member list size is NOT matching", (memberList.size() == 1));
+
+		memberList = memberDao.getMembersByTypeId((short) -99);
+		assertNotNull("No member List returned", memberList);
+		assertTrue("Member List is NON-EMPTY", memberList.isEmpty());
 	}
 
 }
