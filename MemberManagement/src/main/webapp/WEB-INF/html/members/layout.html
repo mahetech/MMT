@@ -1,0 +1,43 @@
+<div class="alert alert-error" ng-show="error">
+    {{errorMessage}}
+</div>
+<hr />
+<h3>Search Member</h3>
+<div class="input-append">
+    <input style="width:358px; margin-left: 100px;" class="span2" type="text" ng-model="searchStr" 
+    placeholder="Search Member by Id or Name" required="required" min="3" />
+    <button class="btn btn-primary" ng-disabled="!searchStr" ng-click="searchMember(searchStr)">Search Member</button>
+</div>
+
+<h3>Member List</h3>
+<div class="alert alert-info" style="width:400px;margin-left:100px;" ng-show="!mem">
+    No members found
+</div>
+<table class="table table-bordered table-striped" style="width:450px; margin-left: 100px;" ng-show="mem">
+    <thead>
+        <tr>
+            <th style="text-align: center; width: 25px;">Member Id</th>
+            <th style="text-align: center;">Member Name (English)</th>
+            <th style="text-align: center;">Member Name (Chinese)</th>
+            <th style="text-align: center;">Gender</th>
+            <th style="text-align: center;">Nationality Id</th>
+            <th style="text-align: center;">Identity Type Id</th>
+            <th style="text-align: center;">Identity Number</th>
+            <th style="text-align: center;">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: center;">{{mem.memberId}}</td>
+            <td>{{mem.nameEngligh}}</td>
+            <td>{{mem.nameChinese}}</td>
+            <td>{{mem.gender}}</td>
+            <td>{{mem.nationalityId}}</td>
+            <td>{{mem.identityTypeId}}</td>
+            <td>{{mem.identityNumber}}</td>
+            <td style="width:100px;text-align: center;">
+                <button class="btn btn-mini btn-success" ng-click="toBeDone(mem)">Edit</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
