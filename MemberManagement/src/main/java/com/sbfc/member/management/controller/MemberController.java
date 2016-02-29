@@ -1,4 +1,4 @@
-package com.sbfc.member.management.model.controller;
+package com.sbfc.member.management.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sbfc.member.management.model.Member;
-import com.sbfc.member.management.model.service.IMemberService;
+import com.sbfc.member.management.service.IMemberService;
 
 @Controller
 @RequestMapping("/members")

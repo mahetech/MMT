@@ -1,4 +1,4 @@
-package com.sbfc.member.management.model.service;
+package com.sbfc.member.management.service;
 
 import com.sbfc.member.management.model.Member;
 

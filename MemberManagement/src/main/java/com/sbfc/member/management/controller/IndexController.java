@@ -1,4 +1,4 @@
-package com.sbfc.member.management.model.controller;
+package com.sbfc.member.management.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
