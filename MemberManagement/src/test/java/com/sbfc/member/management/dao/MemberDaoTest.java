@@ -542,7 +542,7 @@ public class MemberDaoTest {
 		 * A member record with member name contains "mahe" should already be
 		 * available in "member" table.
 		 */
-		memberList = memberDao.getMembersByIdOrName("cHIn");
+		memberList = memberDao.getMembersByIdOrName("秀");
 		assertNotNull("No member List returned", memberList);
 		assertFalse("Member List is EMPTY", memberList.isEmpty());
 		assertTrue("Member list size is NOT matching", (memberList.size() >= 1));

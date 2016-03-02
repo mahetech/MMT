@@ -42,6 +42,7 @@ public class MemberServiceImpl implements IMemberService {
 		} else {
 			System.err.println("Invalid Search String: " + searchStr);
 		}
+		System.out.println("memberService >> getMembersByIdOrName >> memList >> " + memList);
 		return memList;
 	}
 }

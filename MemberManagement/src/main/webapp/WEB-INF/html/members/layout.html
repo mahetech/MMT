@@ -9,19 +9,22 @@
 </div>
 
 <h3>Member List</h3>
-<div class="alert alert-info" style="width:400px;margin-left:100px;" ng-show="!memberList">
+<div class="alert alert-info" style="width:400px;margin-left:100px;" ng-show="!memberList.length">
     No members found
 </div>
-<table class="table table-bordered table-striped" style="width:450px; margin-left: 100px;" ng-show="memberList">
+<table class="table table-bordered table-striped" style="width:450px; margin-left: 100px;" ng-show="memberList.length">
     <thead>
         <tr>
             <th style="text-align: center; width: 25px;">Member Id</th>
             <th style="text-align: center;">Member Name (English)</th>
             <th style="text-align: center;">Member Name (Chinese)</th>
-            <th style="text-align: center;">Gender</th>
-            <th style="text-align: center;">Nationality Id</th>
-            <th style="text-align: center;">Identity Type Id</th>
+            <th style="text-align: center;">Member Type</th>
+            <th style="text-align: center;">Gender</th>            
+            <th style="text-align: center;">Identity Type</th>
             <th style="text-align: center;">Identity Number</th>
+            <th style="text-align: center;">Nationality</th>
+            <th style="text-align: center;">Religion</th>
+            <th style="text-align: center;">Dialect Group</th>
             <th style="text-align: center;">Action</th>
         </tr>
     </thead>
@@ -30,10 +33,13 @@
             <td style="text-align: center;">{{mem.memberId}}</td>
             <td>{{mem.nameEngligh}}</td>
             <td>{{mem.nameChinese}}</td>
+            <td>{{mem.memberType}}</td>
             <td>{{mem.gender}}</td>
-            <td>{{mem.nationalityId}}</td>
-            <td>{{mem.identityTypeId}}</td>
+            <td>{{mem.identityType}}</td>
             <td>{{mem.identityNumber}}</td>
+            <td>{{mem.nationality}}</td>
+            <td>{{mem.religion}}</td>
+            <td>{{mem.dialectGroup}}</td>
             <td style="width:100px;text-align: center;">
                 <button class="btn btn-mini btn-success" ng-click="toBeDone(mem)">Edit</button>
             </td>
