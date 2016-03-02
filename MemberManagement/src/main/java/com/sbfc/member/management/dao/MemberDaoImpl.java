@@ -230,7 +230,36 @@ public final class MemberDaoImpl extends AbstractDao implements IMemberDao {
 		Map<String, Short> map = new HashMap<String, Short>();
 		map.put("memberTypeId", memberTypeId);
 		List<Member> memberList = getJdbcTemplate().query(FETCH_MEMBERS_BY_TYPE, map, getMemberMapper());
-		System.out.println(String.format("For Input memberTypeId=%s, Address List:\n %s", memberTypeId, memberList));
+		System.out.println(String.format("For Input memberTypeId=%s, Member List:\n %s", memberTypeId, memberList));
+		return memberList;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.sbfc.member.management.dao.IMemberDao#getAllMembers()
+	 */
+	@Override
+	public List<Member> getAllMembers() {
+		Map<String, Short> map = new HashMap<String, Short>();
+		List<Member> memberList = getJdbcTemplate().query(FETCH_ALL_MEMBERS, map, getMemberMapper());
+		System.out.println("Member List:\n" + memberList);
+		return memberList;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.sbfc.member.management.dao.IMemberDao#getMembersByIdOrName()
+	 */
+	@Override
+	public List<Member> getMembersByIdOrName(String searchStr) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("memberId", searchStr);
+		String nameStr = "%" + searchStr + "%";
+		map.put("likeStr", nameStr.toLowerCase());
+		List<Member> memberList = getJdbcTemplate().query(SEARCH_MEMBERS_BY_ID_NAME, map, getMemberMapper());
+		System.out.println(String.format("For Input Search String=%s, Member List:\n %s", searchStr, memberList));
 		return memberList;
 	}
 

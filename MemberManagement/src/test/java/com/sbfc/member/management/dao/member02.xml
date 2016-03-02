@@ -8,7 +8,7 @@
     <dialectGroupId>302</dialectGroupId>
     <email>abcd.1234@gmail.com</email>
     <faxNumber>faxNumber</faxNumber>
-    <gender>M</gender>
+    <gender>F</gender>
     <highestEducation>highestEducation</highestEducation>
     <homePhone>homePhone</homePhone>
     <identityNumber>identityNumber</identityNumber>
@@ -17,7 +17,7 @@
     <leavingReasonId>503</leavingReasonId>
     <memberTypeId>703</memberTypeId>
     <mobile>mobile123</mobile>
-    <nameChinese>nameChinese</nameChinese>
+    <nameChinese>李秀英</nameChinese>
     <nameEngligh>nameEngligh</nameEngligh>
     <nationalityId>103</nationalityId>
     <occupation>occupation</occupation>

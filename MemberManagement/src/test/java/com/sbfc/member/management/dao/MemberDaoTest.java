@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -22,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sbfc.member.management.common.Common;
@@ -31,9 +33,12 @@ import com.sbfc.member.management.model.GlobalConstant;
 import com.sbfc.member.management.model.Member;
 import com.sbfc.member.management.model.Payment;
 
+//Annotation "WebAppConfiguration" has been added to support JUnit
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DatabaseConfiguration.class)
 @Transactional
+@WebAppConfiguration
 public class MemberDaoTest {
 
 	@Autowired
@@ -410,6 +415,9 @@ public class MemberDaoTest {
 		mem.setDateOfBirth(birthDate);
 		mem.setDateJoin(joinDate);
 		mem.setDateLeft(leftDate);
+		Random rnd = new Random();
+		int randomNum = 100000 + rnd.nextInt(800000);
+		mem.setMemberId(Integer.toString(randomNum));
 
 		System.out.println("Member to be inserted:\n" + mem);
 
@@ -460,7 +468,6 @@ public class MemberDaoTest {
 		mem.setDateOfBirth(birthDate);
 		mem.setDateJoin(joinDate);
 		mem.setDateLeft(leftDate);
-		mem.setNameChinese("MaheName in Chinese");
 
 		System.out.println("Member to be updated:\n" + mem);
 
@@ -492,14 +499,57 @@ public class MemberDaoTest {
 		List<Member> memberList = memberDao.getMembersByTypeId((short) 703);
 		assertNotNull("No member List returned", memberList);
 		assertFalse("Member List is EMPTY", memberList.isEmpty());
-		assertTrue("Member list size is NOT matching", (memberList.size() == 2));
+		assertTrue("Member list size is NOT matching", (memberList.size() > 2));
 
 		memberList = memberDao.getMembersByTypeId((short) 702);
 		assertNotNull("No member List returned", memberList);
 		assertFalse("Member List is EMPTY", memberList.isEmpty());
-		assertTrue("Member list size is NOT matching", (memberList.size() == 1));
+		assertTrue("Member list size is NOT matching", (memberList.size() >= 1));
 
 		memberList = memberDao.getMembersByTypeId((short) -99);
+		assertNotNull("No member List returned", memberList);
+		assertTrue("Member List is NON-EMPTY", memberList.isEmpty());
+	}
+
+	@Test
+	public void testGetAllMembers() {
+		List<Member> memberList = memberDao.getAllMembers();
+		assertNotNull("No member List returned", memberList);
+		assertFalse("Member List is EMPTY", memberList.isEmpty());
+	}
+
+	@Test
+	public void testGetMembersByIdOrName() {
+		/*
+		 * A member record with memberId="A1" should already be available in
+		 * "member" table.
+		 */
+		List<Member> memberList = memberDao.getMembersByIdOrName("A1");
+		assertNotNull("No member List returned", memberList);
+		assertFalse("Member List is EMPTY", memberList.isEmpty());
+		assertTrue("Member list size is NOT matching", (memberList.size() == 1));
+
+		/*
+		 * A member record with member name contains "mahe" should already be
+		 * available in "member" table.
+		 */
+		memberList = memberDao.getMembersByIdOrName("MahE");
+		assertNotNull("No member List returned", memberList);
+		assertFalse("Member List is EMPTY", memberList.isEmpty());
+		assertTrue("Member list size is NOT matching", (memberList.size() >= 1));
+		
+		/*
+		 * A member record with member name contains "mahe" should already be
+		 * available in "member" table.
+		 */
+		memberList = memberDao.getMembersByIdOrName("cHIn");
+		assertNotNull("No member List returned", memberList);
+		assertFalse("Member List is EMPTY", memberList.isEmpty());
+		assertTrue("Member list size is NOT matching", (memberList.size() >= 1));
+		
+		
+
+		memberList = memberDao.getMembersByIdOrName("inVaLiD");
 		assertNotNull("No member List returned", memberList);
 		assertTrue("Member List is NON-EMPTY", memberList.isEmpty());
 	}

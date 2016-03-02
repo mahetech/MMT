@@ -1,7 +1,6 @@
 <div class="alert alert-error" ng-show="error">
     {{errorMessage}}
 </div>
-<hr />
 <h3>Search Member</h3>
 <div class="input-append">
     <input style="width:358px; margin-left: 100px;" class="span2" type="text" ng-model="searchStr" 
@@ -10,10 +9,10 @@
 </div>
 
 <h3>Member List</h3>
-<div class="alert alert-info" style="width:400px;margin-left:100px;" ng-show="!mem">
+<div class="alert alert-info" style="width:400px;margin-left:100px;" ng-show="!memberList">
     No members found
 </div>
-<table class="table table-bordered table-striped" style="width:450px; margin-left: 100px;" ng-show="mem">
+<table class="table table-bordered table-striped" style="width:450px; margin-left: 100px;" ng-show="memberList">
     <thead>
         <tr>
             <th style="text-align: center; width: 25px;">Member Id</th>
@@ -27,7 +26,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
+        <tr ng-repeat="mem in memberList">
             <td style="text-align: center;">{{mem.memberId}}</td>
             <td>{{mem.nameEngligh}}</td>
             <td>{{mem.nameChinese}}</td>

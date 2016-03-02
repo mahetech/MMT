@@ -8,13 +8,23 @@ var MemberController = function($scope, $http) {
     $scope.searchMember = {};
     $scope.editMode = false;
     
+    $scope.loadAllMembers = function(searchStr) {
+        $scope.resetError();
+
+        $http.get('members/loadAllMembers').success(function(memberList) {
+        	$scope.memberList = memberList;
+        }).error(function() {
+            $scope.setError('Could not load the member list');
+        });
+    };
+    
     $scope.searchMember = function(searchStr) {
         $scope.resetError();
 
-        $http.get('members/searchMember/' + searchStr).success(function(member) {
-        	$scope.mem = member;
+        $http.get('members/searchMember/' + searchStr).success(function(memberList) {
+        	$scope.memberList = memberList;
         }).error(function() {
-            $scope.setError('Could not find the member');
+        	$scope.setError('Could not load the member list');
         });
     };
 
@@ -28,7 +38,7 @@ var MemberController = function($scope, $http) {
         $scope.errorMessage = message;
     };
     
-    $scope.searchMember('abcd');
+    $scope.loadAllMembers();
 
     $scope.predicate = 'id';
 };

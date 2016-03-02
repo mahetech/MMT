@@ -1,5 +1,7 @@
 package com.sbfc.member.management.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,10 +19,16 @@ public class MemberController {
 	@Autowired
 	private IMemberService memberService;
 
+	@RequestMapping(value = "/loadAllMembers", method = RequestMethod.GET)
+	public @ResponseBody List<Member> loadAllMembers() {
+		System.out.println("Member Controller :: loadAllMembers");
+		return memberService.getAllMembers();
+	}
+
 	@RequestMapping(value = "/searchMember/{searchStr}", method = RequestMethod.GET)
-	public @ResponseBody Member searchMember(@PathVariable("searchStr") String searchStr) {
-		System.out.println("Member Controller :: xx :: searchStr :: " + searchStr);
-		return memberService.getMemberById(searchStr);
+	public @ResponseBody List<Member> searchMember(@PathVariable("searchStr") String searchStr) {
+		System.out.println("Member Controller :: searchMember :: searchStr :: " + searchStr);
+		return memberService.getMembersByIdOrName(searchStr);
 	}
 
 	@RequestMapping("/layout")

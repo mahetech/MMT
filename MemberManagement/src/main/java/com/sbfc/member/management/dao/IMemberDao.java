@@ -36,12 +36,17 @@ public interface IMemberDao {
 
 	public static final String UPDATE_MEMBER = "UPDATE member SET MEMBER_TYPE_ID = :memberTypeId, TITLE = :title, NAME_ENGLIGH = :nameEngligh, NAME_CHINESE = :nameChinese, GENDER = :gender, DATE_OF_BIRTH = :dateOfBirth, IDENTITY_TYPE_ID = :identityTypeId, IDENTITY_NUMBER = :identityNumber, COLOR = :color, NATIONALITY_ID = :nationalityId, DIALECT_GROUP_ID = :dialectGroupId, RELIGION_ID = :religionId, HOME_PHONE = :homePhone, OFFICE_PHONE = :officePhone, MOBILE = :mobile, FAX_NUMBER = :faxNumber, EMAIL = :email, DATE_JOIN = :dateJoin, INTRODUCER_ID =  :introducerId, DATE_LEFT = :dateLeft, LEAVING_REASON_ID = :leavingReasonId, OCCUPATION = :occupation,  CONTACT_TITLE = :contactTitle,  CONTACT_PERSON_NAME = :contactPersonName, HIGHEST_EDUCATION = :highestEducation,  BOARD_MEMBER = :boardMember,  OTHER_CHARITIES = :otherCharities, SERVED_YEAR_TO_YEAR = :servedYearToYear,  ATTENDED_AGM = :attendedAgm,  YEARS_ATTENDED_AGM =  :yearsAttendedAgm,  OTHER_CONTRIBUTION = :otherContribution WHERE MEMBER_ID = :memberId";
 
-	public static final String FETCH_MEMBER_BY_ID = "SELECT * FROM member WHERE MEMBER_ID = :memberId";
+	public static final String FETCH_MEMBER_BY_ID = "SELECT * FROM member_view WHERE MEMBER_ID = :memberId";
 
-	public static final String FETCH_MEMBERS_BY_TYPE = "SELECT * FROM member WHERE MEMBER_TYPE_ID = :memberTypeId";
+	public static final String FETCH_MEMBERS_BY_TYPE = "SELECT * FROM member_view WHERE MEMBER_TYPE_ID = :memberTypeId";
+	
+	public static final String FETCH_ALL_MEMBERS = "SELECT * FROM member_view";
+	
+	public static final String SEARCH_MEMBERS_BY_ID_NAME = "SELECT * FROM member_view WHERE MEMBER_ID = :memberId OR LOWER(MEMBER_NAME) LIKE :likeStr";
 
 	public List<GlobalConstant> retrieveAllConstants();
 
+	/** ********** ADDRESS ********************/
 	public int addAddress(Address addr);
 
 	public int updateAddress(Address addr);
@@ -52,6 +57,7 @@ public interface IMemberDao {
 
 	public List<Address> getAddresses(String memberId);
 
+	/** ********** PAYMENT ********************/
 	public int addPayment(Payment payment);
 
 	public int updatePayment(Payment payment);
@@ -62,6 +68,7 @@ public interface IMemberDao {
 
 	public List<Payment> getPayments(String memberId);
 
+	/** ********** MEMBER ********************/
 	public int addMember(Member mem);
 
 	public int updateMember(Member mem);
@@ -69,5 +76,9 @@ public interface IMemberDao {
 	public Member getMemberById(String memberId);
 
 	public List<Member> getMembersByTypeId(short memberTypeId);
+	
+	public List<Member> getAllMembers();
+	
+	public List<Member> getMembersByIdOrName(String searchStr);
 
 }
